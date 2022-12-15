@@ -5,7 +5,7 @@ Feature: Templates for jsonPlaceHolderTypecode
     Given url env.jsonPlaceHolderUrl
 
   @t_getPosts
-  Scenario: Fetch posts and comments for user id
+  Scenario: Fetch posts for user id
     Given path 'posts/' + userId
     * print "Get all posts with userId as " + userId
     When method GET
@@ -15,7 +15,7 @@ Feature: Templates for jsonPlaceHolderTypecode
     Then match responseStatus == 200
 
   @t_getComments
-  Scenario: Fetch posts and comments for user id
+  Scenario: Fetch comments for user id
     Given path 'comments/' + userId
     * print "Get all comments with userId as " + userId
     When method GET
@@ -23,3 +23,13 @@ Feature: Templates for jsonPlaceHolderTypecode
     * print "Fetched Comments", fetchedComments
     * print "Status: ", responseStatus
     Then match responseStatus == 200
+
+  @t_getAlbums
+  Scenario: Fetch albums for the user id
+    Given path 'albums/'
+    And param userId = userId
+    * print "Albums for the user "+ userId
+    When method GET
+    And def fetchedAlbums = response
+    * print "Fetched Albums", fetchedAlbums
+
