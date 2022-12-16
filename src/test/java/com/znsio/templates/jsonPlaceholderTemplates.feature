@@ -36,10 +36,10 @@ Feature: Templates for jsonPlaceHolderTypecode
   @t_createPost
   Scenario: Create post for the user
     Given path 'posts/'
-    And request {"userId": "#(userId)", "title": "#(title)", "body": "#(body)"}
+    And request {"userId": #(userId), "title": "#(title)", "body": "#(body)"}
     When method POST
     Then status 201
-    * karate.log("Created Post: " + response)
+    * print "Created Post: " , response
 
   @t_updatePost
   Scenario: Update a post
