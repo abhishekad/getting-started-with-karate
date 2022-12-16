@@ -33,3 +33,11 @@ Feature: Templates for jsonPlaceHolderTypecode
     And def fetchedAlbums = response
     * print "Fetched Albums", fetchedAlbums
 
+  @t_createPost
+  Scenario: Create post for the user
+    Given path 'posts/'
+    And request {"userId": "#(userId)", "title": "#(title)", "body": "#(body)"}
+    When method POST
+    Then  status 201
+    * print response
+

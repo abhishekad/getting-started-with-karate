@@ -1,4 +1,4 @@
-@postAndComments @prod
+@postAndAlbums @prod
 
   #TARGET_ENVIRONMENT=prod TAG=@albums TYPE=api ./gradlew test
 Feature: Fetch posts and albums for a user
