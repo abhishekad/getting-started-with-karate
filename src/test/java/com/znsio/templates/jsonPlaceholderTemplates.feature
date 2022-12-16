@@ -28,16 +28,23 @@ Feature: Templates for jsonPlaceHolderTypecode
   Scenario: Fetch albums for the user id
     Given path 'albums/'
     And param userId = userId
-    * print "Albums for the user "+ userId
+    *  karate.log("Albums for user id " + userId)
     When method GET
     And def fetchedAlbums = response
-    * print "Fetched Albums", fetchedAlbums
+    *  karate.log("Fetched Albums " + response)
 
   @t_createPost
   Scenario: Create post for the user
     Given path 'posts/'
     And request {"userId": "#(userId)", "title": "#(title)", "body": "#(body)"}
     When method POST
-    Then  status 201
-    * print response
+    Then status 201
+    * karate.log("Created Post: " + response)
 
+  @t_updatePost
+  Scenario: Update a post
+    Given path 'posts/' + userId
+    And request {"title": "#(title)", "body": "#(body)"}
+    When method PUT
+    Then status 200
+    * karate.log("Updated Post: " + response)
