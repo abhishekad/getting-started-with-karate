@@ -19,5 +19,3 @@ Feature: Fetch posts and albums for a user
     Given def fetchedAlbums = karate.call('classpath:com/znsio/templates/jsonPlaceholderTemplates.feature@t_getAlbums',{userId}).fetchedAlbums
     Then match each fetchedAlbums[*].userId == userId
     And match fetchedAlbums[0] == userData.expectedAlbumResponse
-
-
