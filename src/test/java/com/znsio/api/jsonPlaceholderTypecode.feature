@@ -7,7 +7,7 @@ Feature: Fetch posts and albums for a user
     Given def fetchedPosts = karate.call('classpath:com/znsio/templates/jsonPlaceholderTemplates.feature@t_getPosts',{'userId': <userId>, expectedStatus: <expectedStatus>}).fetchedPost
     * print "Fetched posts id: ", fetchedPosts.id
     * print "Fetched posts title: ",fetchedPosts.title
-    Then match each fetchedPosts[*].id == userId
+    Then match each fetchedPosts[*].id == <userId>
     Examples:
     | userId | expectedStatus|
     | 1    |  200             |
