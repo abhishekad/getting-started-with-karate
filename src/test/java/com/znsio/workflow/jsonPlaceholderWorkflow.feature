@@ -15,10 +15,12 @@
       Then karate.log('response : ' + createPost)
       * match createPost.userId == userId
       * match createPost.title == title
+      * match createPost.body == body
       Given def fetchedPosts = karate.call('classpath:com/znsio/templates/jsonPlaceholderTemplates.feature@t_getPosts',{'userId': userId, expectedStatus: 200}).fetchedPost
       And match fetchPosts.userId == userId
       And match fetchPosts.title == title
-      Then def updatePost = karate.call('classpath:com/znsio/templates/jsonPlaceholderTemplates.feature@t_updatePost', {"userId": userId, "title": newTitle, "body": newBody}).response
+      And match fetchPosts.body == body
+      Given def updatePost = karate.call('classpath:com/znsio/templates/jsonPlaceholderTemplates.feature@t_updatePost', {"userId": userId, "title": newTitle, "body": newBody}).response
       And karate.log('response : ' + updatePost)
       * match updatePost.title == newTitle
       * match updatePost.body == newBody
