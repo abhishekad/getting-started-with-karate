@@ -12,7 +12,7 @@ Feature: Templates for jsonPlaceHolderTypecode
     And def fetchedPost = response
     * print "Posts found: ", fetchedPost
     * print "Status: ", responseStatus
-    Then match responseStatus == 200
+    Then match responseStatus == expectedStatus
 
   @t_getComments
   Scenario: Fetch comments for user id
