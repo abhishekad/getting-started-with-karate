@@ -6,7 +6,7 @@ Feature: Fetch posts and albums for a user
   Background:
     * def userId = 1
     * def invalidUserId = 15
-@pst
+
   Scenario Outline: Fetch Posts from jsonplaceholder for different user ids
     Given def fetchedPosts = karate.call('classpath:com/znsio/templates/jsonPlaceholderTemplates.feature@t_getPosts',{'userId': <userId>, expectedStatus: <expectedStatus>}).fetchedPost
     * print "Fetched posts id: ", fetchedPosts.id
@@ -29,11 +29,15 @@ Feature: Fetch posts and albums for a user
     Then match fetchedComments.id == userId
     And match fetchedComments.body == '#string'
 
-  Scenario: Fetch Albums from jsonplaceholder for user id 1
-    Given def fetchedAlbums = karate.call('classpath:com/znsio/templates/jsonPlaceholderTemplates.feature@t_getAlbums',{userId}).fetchedAlbums
-    Then match each fetchedAlbums[*].userId == userId
-    And match each fetchedAlbums[*].title == '#string'
-
-  Scenario: User Should Fetch the Albums with Invalid UserId
-    Given def fetchedAlbums = karate.call('classpath:com/znsio/templates/jsonPlaceholderTemplates.feature@t_getAlbums',{invalidUserId}).fetchedAlbums
-    Then match fetchedAlbums.arr == null
+  Scenario Outline: Fetch Albums from jsonplaceholder for different user ids
+    Given def fetchedAlbums = karate.call('classpath:com/znsio/templates/jsonPlaceholderTemplates.feature@t_getAlbums',{userId : <userId>, expectedStatus: <expectedStatus>}).fetchedAlbums
+    * print "Fetched Albums id: ", fetchedAlbums.id
+    Then match each fetchedAlbums[*].userId == <userId>
+    Examples:
+      | userId | expectedStatus|
+      | 1    |  200             |
+      | -1   |  404             |
+      | ' '  |  404             |
+      |'qwer'|  404             |
+      | '#*' |  404             |
+      | null |  404             |

@@ -32,6 +32,7 @@ Feature: Templates for jsonPlaceHolderTypecode
     When method GET
     And def fetchedAlbums = response
     *  karate.log("Fetched Albums " + response)
+    Then match responseStatus == expectedStatus
 
   @t_createPost
   Scenario: Create post for the user
